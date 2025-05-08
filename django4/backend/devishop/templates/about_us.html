@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="about-us">
+    <h1 class="about-title">About Keshia Jewels</h1>
+    
+    <section class="about-story">
+        <h2>Our Story</h2>
+        <p>
+            Keshia Jewels was founded with a passion for creating exquisite jewelry that captures the essence of elegance and individuality. Each piece is crafted with the utmost care, using high-quality materials to ensure that our customers feel special and unique. Our journey began with a vision to inspire confidence and beauty through stunning designs that can be cherished for a lifetime.
+        </p>
+    </section>
+    
+    <section class="mission">
+        <h2>Our Mission</h2>
+        <p>
+            At Keshia Jewels, our mission is to provide high-quality, handcrafted jewelry that brings joy and inspiration to our customers. We aim to create pieces that not only enhance personal style but also hold sentimental value, making every moment memorable.
+        </p>
+    </section>
+    
+    <section class="values">
+        <h2>Our Values</h2>
+        <ul>
+            <li><strong>Quality:</strong> We prioritize quality in every piece we create.</li>
+            <li><strong>Creativity:</strong> Our designs are innovative and unique, reflecting the latest trends.</li>
+            <li><strong>Sustainability:</strong> We are committed to ethical practices and sustainable sourcing of materials.</li>
+            <li><strong>Customer Satisfaction:</strong> We strive to exceed customer expectations and foster lasting relationships.</li>
+        </ul>
+    </section>
+    
+    <section class="contact">
+        <h2>Contact Us</h2>
+        <p>
+            We would love to hear from you! If you have any questions, suggestions, or just want to say hello, please reach out to us:
+        </p>
+        <ul>
+            <li>Email: <a href="mailto:info@keshiajewels.com">info@keshiajewels.com</a></li>
+            <li>Phone: <a href="tel:012345678">01 234 5678</a></li>
+            <li>Address: 123 Keshia St, Dublin, D02 A123</li>
+        </ul>
+    </section>
+</div>
+
+<style>
+    body {
+        background-color: #f4f1ec; 
+        font-family: 'Playfair Display', serif; 
+    }
+
+    .about-us {
+        max-width: 850px;
+        margin: 60px auto;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); 
+        text-align: center;
+    }
+
+    .about-title {
+        font-size: 2.8em;
+        color: #b78b6e; 
+        margin-bottom: 30px;
+        font-family: 'Cormorant Garamond', serif; 
+        letter-spacing: 2px;
+        font-weight: 600;
+    }
+
+    h2 {
+        font-size: 1.9em;
+        margin-bottom: 15px;
+        color: #333; 
+        text-transform: uppercase;
+        font-family: 'Playfair Display', serif;
+    }
+
+    p {
+        font-size: 1.2em;
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-family: 'Lora', serif; 
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        font-size: 1.15em;
+        color: #444;
+        line-height: 1.7;
+        margin-bottom: 10px;
+        font-family: 'Lora', serif;
+    }
+
+    li::before {
+        content: "◆"; 
+        color: #b78b6e;
+        margin-right: 10px;
+        font-size: 1.1em;
+    }
+
+    a {
+        color: #b78b6e;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease-in-out;
+    }
+
+    a:hover {
+        color: #8c644e; 
+        text-decoration: underline;
+    }
+
+    .about-story, .mission, .values, .contact {
+        margin-bottom: 40px;
+    }
+
+    footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #777;
+        font-family: 'Lora', serif;
+    }
+
+</style>
+
+{% endblock %}

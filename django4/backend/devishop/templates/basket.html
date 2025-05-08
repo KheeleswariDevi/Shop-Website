@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="basket-title">Your Basket</h1>
+
+{% if products %}
+    <ul class="basket-list">
+        {% for item in products %}
+        <li id="product-{{ item.product.id }}" class="basket-item">
+            <div class="product-image-container">
+                {% if item.product.product_image %}
+                    <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" class="product-image" />
+                {% else %}
+                    <p class="no-image">No image available.</p>
+                {% endif %}
+            </div>
+            <div class="product-details">
+                <p class="item-name">{{ item.product.name }}</p>
+                <p class="item-price">Price: ${{ item.product.price|floatformat:2 }}</p>
+                <p class="item-quantity">Quantity: {{ item.quantity }}</p>
+
+                <div class="button-group">
+                    <form action="{% url 'add_quantity' item.product.id %}" method="post" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Add One</button>
+                    </form>
+
+                    <form action="{% url 'remove_from_basket' item.product.id %}" method="post" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Remove One</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2 id="total-price" class="total-price">Total Price: ${{ total_price }}</h2>
+    
+{% else %}
+    <p class="empty-basket">No items in your basket.</p>
+{% endif %}
+
+<div class="basket-actions">
+    <a href="{% url 'index' %}" class="btn btn-secondary">Continue Shopping</a>
+    <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
+</div>
+
+<style>
+    .basket-title {
+        font-size: 2em;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .basket-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .basket-item {
+        display: flex;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 15px;
+        align-items: center;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .product-image-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .product-image {
+        max-width: 100px;
+        max-height: 100px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .no-image {
+        padding: 10px;
+        background-color: #f4f4f4;
+        color: #666;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 100px;
+    }
+
+    .product-details {
+        flex: 2;
+        padding: 10px;
+        text-align: center; 
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        margin-top: 10px; 
+    }
+
+    .inline-form {
+        margin-right: 10px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333; 
+    }
+
+    .btn-secondary {
+        background-color: #6c757d; 
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: #007bff; 
+        color: white;
+    }
+
+    .basket-actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .total-price {
+        font-size: 1.5em;
+        margin-top: 20px;
+        text-align: center;
+        color: #b89c7f; 
+    }
+
+    .empty-basket {
+        text-align: center;
+        color: #999;
+        font-size: 1.2em;
+    }
+</style>
+
+{% endblock %}

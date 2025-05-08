@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page-title">Keshia Jewels</h1>
+
+<div class="message-container{% if not messages %} hidden{% endif %}" id="message-container">
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+            <button type="button" class="close-button" onclick="closeMessage()">×</button>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="search-filter-container">
+    <form method="GET" action="{% url 'index' %}">
+        <input type="text" class="search-input" name="q" placeholder="Search products..." value="{{ query }}">
+        
+        <select class="filter-select" name="category">
+            <option value="">All Products</option>  
+            {% for category in categories %}
+            <option value="{{ category.id }}" {% if category.id|stringformat:"s" == request.GET.category %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <button type="submit" class="search-button">Search</button>
+    </form>
+</div>
+
+<ul class="product-list">
+    {% for product in products %}
+    <li class="product-item">
+        <a href="{% url 'individual_product' product.id %}" class="product-link">
+            <div class="product-image-container">
+                {% if product.product_image %}
+                    <img src="{{ product.product_image.url }}" alt="{{ product.name }}" class="product-image" />
+                {% else %}
+                    <div class="no-image">No image available.</div>
+                {% endif %}
+            </div>
+        </a>
+        <div class="product-details">
+            <h2 class="product-name">{{ product.name }}</h2>
+            <p class="product-price">Price: ${{ product.price }}</p>
+            <form action="{% url 'add_basket' product.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Add to Basket</button>
+            </form>
+        </div>
+    </li>
+    {% empty %}
+    <li class="no-products">No products available.</li>
+    {% endfor %}
+</ul>
+
+<script>
+    function closeMessage() {
+        const messageContainer = document.getElementById('message-container');
+        messageContainer.style.display = 'none';
+    }
+</script>
+
+<style>
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color:  #f4f1ec;
+    color: #333;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #5c3d2e;
+}
+
+.message-container {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.message-container .alert {
+    font-size: 1rem;
+    color: #fff;
+    background-color: #8bc34a;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.message-container.hidden {
+    display: none;
+}
+
+.close-button {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.search-filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.search-input, .filter-select, .search-button {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-input {
+    width: 250px;
+}
+
+.filter-select {
+    width: 180px;
+}
+
+.search-button {
+    background-color: #5c3d2e;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #7a553d;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.product-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px; 
+    object-fit: cover; 
+    border-radius: 10px;
+}
+
+.no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 250px;
+    background-color: #e0e0e0;
+    color: #666;
+    border-radius: 10px;
+}
+
+.product-details {
+    text-align: center;
+}
+
+.product-name {
+    font-size: 1.4rem;
+    color: #5c3d2e;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #5c3d2e;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #7a553d;
+}
+
+.no-products {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+</style>
+
+
+{% endblock %}

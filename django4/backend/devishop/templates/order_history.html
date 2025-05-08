@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+<div class="order-history-wrapper">
+    <h1>Order History</h1>
+
+    {% if grouped_orders %}
+    {% for order_date, orders in grouped_orders %}
+    <div class="order-date-block">
+        <h2 class="order-date">{{ order_date }}</h2>
+        <div class="order-list">
+            {% for order, total_price in orders %}
+                <div class="order-item">
+                    <div class="order-header">
+                        <span class="order-id"><strong>Order ID:</strong> {{ order.id }}</span>
+                        <span class="order-time"><strong>Ordered At:</strong> {{ order.ordered_at|date:"F j, Y g:i a" }}</span>
+                    </div>
+
+                    <div class="order-products">
+                        <h3>Products:</h3>
+                        <ul>
+                            {% for item in order.items.all %}
+                                <li class="product-entry">
+                                    <span>{{ item.product.name }}</span>
+                                    <span>Qty: {{ item.quantity }}</span>
+                                    <span>${{ item.product.price|floatformat:2 }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="order-total">
+                        <strong>Total Price:</strong> ${{ total_price|floatformat:2 }} 
+                    </div>
+
+                    <hr class="order-divider">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+{% else %}
+<p class="no-orders">No previous orders found.</p>
+{% endif %}
+</div>
+
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    .order-history-wrapper {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    h1 {
+        font-size: 2.5em;
+        text-align: center;
+        color: #4a4a4a;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 15px;
+    }
+
+    .order-date-block {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-left: 4px solid #925d6f;
+        border-radius: 8px;
+    }
+
+    .order-date {
+        font-size: 1.6em;
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+
+    .order-item {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1em;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .order-header .order-id, .order-header .order-time {
+        color: #925d6f;
+    }
+
+    .order-products {
+        margin-top: 10px;
+    }
+
+    .order-products h3 {
+        font-size: 1.2em;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .product-entry {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    .product-entry span {
+        color: #666;
+    }
+
+    .order-total {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #333;
+        margin-top: 10px;
+        text-align: right;
+    }
+
+    .order-divider {
+        margin-top: 10px;
+        border: none;
+        height: 1px;
+        background-color: #ddd;
+    }
+
+    .no-orders {
+        text-align: center;
+        font-size: 1.2em;
+        color: #777;
+        padding: 20px;
+    }
+</style>
+
+{% endblock %}

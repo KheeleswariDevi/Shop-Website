@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Logout Confirmation{% endblock %}
+
+{% block content %}
+<style>
+
+    .center-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .confirmation-box {
+        background-color: #f8f9fa;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+
+</style>
+
+<div class="center-container">
+    <div class="confirmation-box">
+        <h2>Are you sure you want to log out?</h2>
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <br>
+            <button type="submit" class="btn btn-danger">Yes, Log me out</button>
+            <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

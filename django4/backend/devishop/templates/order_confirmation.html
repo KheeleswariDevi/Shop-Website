@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block content %}
+<div class="order-confirmation-container">
+    <h1 class="confirmation-title">Order Confirmation</h1>
+
+    {% if order_items %}
+        <div class="order-details">
+            <h2>Your Order:</h2>
+            <ul class="order-list">
+                {% for item in order_items %}
+                    <li class="product-item">
+                        <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" class="product-image">
+                        <div class="product-info">
+                            <strong class="product-name">{{ item.product.name }}</strong> 
+                            <span class="product-quantity">Quantity: {{ item.quantity }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="total-price"><strong>Total Price:</strong> ${{ total_price|floatformat:2 }}</p>
+        </div>
+    {% else %}
+        <p>No items found in this order.</p>
+    {% endif %}
+</div>
+
+<style>
+    .order-confirmation-container {
+        max-width: 600px; 
+        margin: 0 auto; 
+        padding: 20px;
+        background-color: #f4f4f9; 
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    }
+
+    .confirmation-title {
+        text-align: center;
+        color: #444;
+        margin-bottom: 20px; 
+    }
+
+    .order-details {
+        margin-top: 20px;
+    }
+
+    .order-list {
+        list-style: none; 
+        padding: 0;
+    }
+
+    .product-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        border: 1px solid #ddd; 
+        border-radius: 5px; 
+        padding: 10px; 
+        background-color: #fff; 
+        transition: transform 0.2s; 
+    }
+
+    .product-item:hover {
+        transform: scale(1.02); 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    }
+
+    .product-image {
+        width: 100px; 
+        height: auto;  
+        margin-right: 15px; 
+        border-radius: 5px; 
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column; 
+    }
+
+    .product-name {
+        color: #181919;
+        font-weight: bold;
+    }
+
+    .product-quantity {
+        color: #737171; 
+    }
+
+    .total-price {
+        font-size: 1.2em;
+        margin-top: 15px;
+        font-weight: bold;
+        text-align: right;
+        color: #333; 
+    }
+</style>
+{% endblock %}

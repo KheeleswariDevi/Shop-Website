@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Keshia Jewels</title>
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            color: #333;
+            background-color: #fdfcf9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .product-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .product-image {
+            flex: 1;
+            max-width: 700px;
+            margin-right: 40px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .product-details h1 {
+            font-size: 2.5em;
+            color: #b89c7f;
+            margin-bottom: 20px;
+        }
+
+        .product-details p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .product-price {
+            font-size: 2em;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .btn-add-to-cart, .btn-secondary {
+            background-color: #b89c7f;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        .btn-add-to-cart:hover, .btn-secondary:hover {
+            background-color: #9d846a;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .related-products {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+        }
+
+        .related-products h2 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .related-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .related-product-item {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .related-product-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .related-product-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .related-product-item h3 {
+            margin: 15px 0 10px;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .related-product-item .price {
+            font-size: 1.3em;
+            color: #b89c7f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="product-container">
+        <div class="product-image">
+            <img src="{{ product.product_image.url }}" alt="{{ product.name }}" class="product-image" />
+        </div>
+        <div class="product-details">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.description }}</p>
+            <p class="product-price">${{ product.price }}</p>
+            <button class="btn-add-to-cart">Add to Cart</button>
+            <button class="btn-secondary">View Basket</button> 
+        </div>
+    </div>
+
+</body>
+
+
+{% endblock %}
